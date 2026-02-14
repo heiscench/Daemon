@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>DAEMON — Born from Fracture • Jade Fire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --jade: #00ffaa;
+            --jade-dark: #00cc88;
+            --neon-purple: #c300ff;
+            --bg-deep: #0a0012;
+        }
+        
+        body {
+            background: var(--bg-deep);
+            color: #e0f7ff;
+            font-family: 'Roboto Mono', monospace;
+            overflow-x: hidden;
+        }
+        
+        .cyber-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .neon-glow {
+            text-shadow: 
+                0 0 5px var(--jade),
+                0 0 15px var(--jade),
+                0 0 30px var(--jade),
+                0 0 60px rgba(0,255,170,0.4);
+        }
+        
+        .neon-purple-glow {
+            text-shadow: 
+                0 0 10px var(--neon-purple),
+                0 0 20px var(--neon-purple),
+                0 0 40px rgba(195,0,255,0.5);
+        }
+        
+        .glitch {
+            position: relative;
+            animation: glitch-skew 4s infinite;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-purple);
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: 2px 0 var(--jade);
+            clip: rect(0, 900px, 0, 0);
+            animation: glitch-anim2 3s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(20px, 9999px, 40px, 0); transform: skew(0.4deg); }
+            5% { clip: rect(60px, 9999px, 80px, 0); transform: skew(0.2deg); }
+            10% { clip: rect(10px, 9999px, 30px, 0); transform: skew(-0.6deg); }
+            /* ... more random keyframes for realism ... */
+            100% { clip: rect(50px, 9999px, 70px, 0); transform: skew(0.3deg); }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(30px, 9999px, 50px, 0); transform: skew(-0.3deg); }
+            /* random variations */
+        }
+        
+        @keyframes glitch-skew {
+            0%, 100% { transform: skew(0deg); }
+            10%, 90% { transform: skew(1deg); }
+            50% { transform: skew(-1deg); }
+        }
+        
+        .scanline {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(transparent 50%, rgba(0,255,170,0.04) 50%);
+            background-size: 100% 6px;
+            animation: scan 8s linear infinite;
+            opacity: 0.5;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        
+        .holo-layer {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(0,255,170,0.12), transparent 60%);
+            pointer-events: none;
+            animation: pulse-holo 12s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-holo {
+            0%,100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        
+        .card-glass {
+            background: rgba(20, 20, 40, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0,255,170,0.18);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,255,170,0.08);
+            transition: all 0.6s cubic-bezier(0.23,1,0.32,1);
+        }
+        
+        .card-glass:hover {
+            transform: translateY(-12px) rotateX(6deg) rotateY(8deg);
+            border-color: var(--jade);
+            box-shadow: 0 0 60px -10px var(--jade);
+        }
+        
+        .mint-pulse {
+            animation: mint-glow 2.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes mint-glow {
+            from { box-shadow: 0 0 30px rgba(0,255,170,0.5); }
+            to   { box-shadow: 0 0 80px rgba(0,255,170,0.9), 0 0 120px rgba(195,0,255,0.4); }
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--jade);
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 15px var(--jade);
+            animation: float-particle linear infinite;
+        }
+        
+        @keyframes float-particle {
+            0% { transform: translateY(0) scale(1); opacity: 0.7; }
+            100% { transform: translateY(-150vh) scale(0.3); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+
+    <!-- Persistent scanline overlay -->
+    <div class="scanline pointer-events-none z-50"></div>
+
+    <!-- Floating jade particles -->
+    <div id="particles-bg" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-black/60 backdrop-blur-xl border-b border-jade/20">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="cyber-font text-4xl neon-glow tracking-widest">DAEMON</div>
+                <div class="text-xs uppercase tracking-[6px] text-jade/80 mt-2">JADE FIRE</div>
+            </div>
+            
+            <div class="hidden md:flex gap-10 text-sm uppercase tracking-widest">
+                <a href="#fracture" class="hover:text-jade transition-colors">Fracture</a>
+                <a href="#daemons" class="hover:text-jade transition-colors">Daemons</a>
+                <a href="#roadmap" class="hover:text-jade transition-colors">Roadmap</a>
+                <a href="#mint" class="hover:text-jade transition-colors">Mint</a>
+            </div>
+            
+            <button class="px-8 py-3 bg-gradient-to-r from-jade to-neon-purple text-black font-bold rounded-full shadow-2xl shadow-jade/40 hover:scale-105 transition-all">
+                CONNECT PHANTOM
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="min-h-screen relative flex items-center justify-center overflow-hidden pt-20">
+        <div class="holo-layer"></div>
+        
+        <div class="relative z-10 text-center px-6 max-w-5xl">
+            <div class="text-sm md:text-base uppercase tracking-[8px] text-jade/70 mb-6 animate-pulse">1111 FRAGMENTS • SOLANA</div>
+            
+            <h1 class="cyber-font text-6xl md:text-9xl font-black leading-none neon-glow glitch mb-6" data-text="BORN FROM FRACTURE">
+                BORN FROM<br>FRACTURE
+            </h1>
+            
+            <p class="text-2xl md:text-4xl text-jade/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Powered by <span class="neon-purple-glow">Jade Fire</span>.<br>
+                1,111 fractured souls waiting to ignite.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <button onclick="document.getElementById('mint').scrollIntoView({behavior:'smooth'})" 
+                        class="mint-pulse px-12 py-6 bg-gradient-to-r from-jade via-jade-dark to-neon-purple text-black text-2xl font-bold rounded-full shadow-2xl shadow-jade/60 hover:shadow-jade/90 transition-all transform hover:scale-110">
+                    CLAIM YOUR FRAGMENT
+                </button>
+                
+                <a href="https://x.com/DaemonOnSol" target="_blank" 
+                   class="px-12 py-6 border-2 border-jade/50 hover:border-jade text-xl rounded-full transition-all hover:bg-jade/10 flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-x-twitter text-2xl"></i>
+                    @DaemonOnSol
+                </a>
+            </div>
+        </div>
+
+        <!-- Floating fractured character / shards -->
+        <div class="absolute bottom-0 right-0 md:right-20 z-10 hidden lg:block">
+            <img src="https://i.ibb.co.com/0jKxL7Z/daemongreen.png" alt="Daemon" class="w-96 md:w-[500px] drop-shadow-[0_0_80px_rgba(0,255,170,0.6)] animate-float-slow">
+        </div>
+    </section>
+
+    <!-- Lore / Fracture -->
+    <section id="fracture" class="py-32 relative">
+        <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <div class="text-jade uppercase tracking-[6px] text-sm mb-4">ORIGIN PROTOCOL</div>
+                <h2 class="cyber-font text-6xl md:text-7xl neon-glow mb-10 leading-tight">
+                    THE FRACTURE<br>REBORN US
+                </h2>
+                <div class="space-y-8 text-lg text-gray-300 leading-relaxed">
+                    <p>The world cracked open. Jade fire erupted from the void — chaotic, sentient, eternal.</p>
+                    <p>Only 1,111 souls withstood the blaze. They were reforged. Twisted. Empowered.</p>
+                    <p class="text-jade text-2xl font-bold">We are the Daemons.</p>
+                </div>
+            </div>
+            
+            <div class="relative card-glass rounded-3xl overflow-hidden aspect-[4/5] md:aspect-auto">
+                <img src="https://picsum.photos/id/1015/900/1200" alt="Fracture scene" class="w-full h-full object-cover opacity-80">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <div class="absolute bottom-10 left-10 right-10 text-center">
+                    <div class="text-5xl cyber-font neon-glow">1111</div>
+                    <div class="text-sm uppercase tracking-widest mt-2">Burned & Reborn</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daemons Collection -->
+    <section id="daemons" class="py-32 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <div class="text-jade uppercase tracking-[8px] mb-4">THE COLLECTION</div>
+                <h2 class="cyber-font text-6xl md:text-8xl neon-glow">THE FRACTURED ONES</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Example cards – duplicate / randomize in production -->
+                <div class="card-glass rounded-3xl overflow-hidden group">
+                    <div class="relative">
+                        <img src="https://picsum.photos/id/64/600/600" class="w-full aspect-square object-cover transition-transform group-hover:scale-110 duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="cyber-font text-2xl neon-glow">VOIDWRAITH #047</div>
+                        <div class="text-jade/80 text-sm mt-2">Legendary • Jade Core</div>
+                        <div class="mt-6 flex justify-between items-center">
+                            <span class="text-xl">0.88 SOL</span>
+                            <button class="px-6 py-3 bg-jade/20 hover:bg-jade/40 rounded-full text-black font-bold transition">MINT</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat 7 more times with different images / names -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Mint Section -->
+    <section id="mint" class="py-40 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,170,0.15),transparent_70%)]"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <div class="text-jade uppercase tracking-[10px] text-xl mb-6 animate-pulse">MINT PHASE ACTIVE</div>
+            <h2 class="cyber-font text-7xl md:text-9xl neon-glow mb-10">IGNITE YOUR DAEMON</h2>
+            
+            <div class="card-glass max-w-2xl mx-auto p-12 rounded-3xl mint-pulse">
+                <div class="text-8xl font-black text-jade mb-4">0.69 SOL</div>
+                <div class="text-xl mb-10">1 per wallet • 1111 total supply</div>
+                
+                <button onclick="alert('Jade Fire incoming... 🔥')" 
+                        class="w-full py-8 bg-gradient-to-r from-jade to-neon-purple text-black text-4xl font-black rounded-2xl shadow-2xl shadow-jade/70 hover:shadow-[0_0_100px_rgba(0,255,170,0.9)] transition-all transform hover:scale-105">
+                    MINT DAEMON
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 border-t border-jade/10 text-center text-gray-500 text-sm">
+        <p>DAEMON COLLECTIVE • 2026 • Powered by Jade Fire on Solana</p>
+        <p class="mt-4">@DaemonOnSol • All rights reserved</p>
+    </footer>
+
+    <script>
+        // Jade particles
+        function spawnParticles() {
+            const container = document.getElementById('particles-bg');
+            for (let i = 0; i < 60; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.width = p.style.height = (1 + Math.random() * 4) + 'px';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.top = Math.random() * 150 + 'vh';
+                p.style.animationDuration = (8 + Math.random() * 15) + 's';
+                p.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(p);
+            }
+        }
+        
+        spawnParticles();
+        
+        // Optional: regenerate particles every ~30s for infinite feel
+        setInterval(() => {
+            document.getElementById('particles-bg').innerHTML = '';
+            spawnParticles();
+        }, 35000);
+    </script>
+</body>
+</html>
